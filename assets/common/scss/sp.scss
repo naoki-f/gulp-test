@@ -1,108 +1,76 @@
+
 @charset "UTF-8";
 
 
-/*-- PCグローバル変数 --*/
-$layoutType:PC;
-$scale:1;
+/*-- グローバル変数 --*/
+$layoutType:SP;
 $imagePathCommon: "../img/";
-$imagePath: "../img/pc/";
+$imagePath: "../img/sp/";
+$scale: 0.5;
 
 
-/*-- PC共通extend --*/
+/*-- SP共通extend --*/
 
 /* movieArea リスト */
 %movieAreaList {
+	display: block;
+	width: 600px * $scale;
+	height: 146px * $scale;
+	margin: 0 auto 10px;
 	position:relative;
-	display: block;
-	flex: 0 0 33%;
-	width: 33.33%;
-}
-
-/* movieArea リストリンク */
-%movieAreaListLink {
-	width: 100%;
-	height: 100%;
-	border: 1px solid #fff;
-	border-right: 0;
-	padding-top: 62%;
-	display: block;
-	text-indent: 100%;
-	overflow: hidden;
-	white-space: nowrap;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
 }
 
 /* movieArea newIcon */
 %movieNewIcon {
 	display: block;
-	text-indent: 100%;
-	overflow: hidden;
-	white-space: nowrap;
 	background: url('#{$imagePath}new.png') left top repeat;
-	width: 51px;
-	height: 82px;
-	position: absolute;
-	bottom: 1px;
-	right: 15px;
-}
-
-/* introductionArea image */
-%introductionAreaImage {
 	background-size: 100%;
-	background-position: center top;
-	background-repeat: no-repeat;
-	width: 480px * $scale;
-	height: 140px * $scale;
-	margin: 60px auto 0;
+	width: 35px;
+	height: 55px;
+	position: absolute;
+	top: 14px;
+	right: 10px;
 }
 
+/* 詳細を見る、閉じるボタン */
+%contentsCheckBtn {
+	display: block;
+	width: 100%;
+	height: 65px;
+	line-height: 65px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 115.5px 23px;
+}
 
-/*-- PC共通mixin --*/
+/*-- SP共通mixin --*/
 
 /* kvArea */
 @mixin kvArea($bgImage) {
 	position: relative;
 	background: url('#{$imagePath}#{$bgImage}') center no-repeat;
 	background-size: 100%;
-	background-size: cover;
-	display: block;
-	width: 100%;
-	height: auto;
-	max-height: 750px;
-	text-indent: 100%;
+	height:900px * $scale;
+	text-indent: -9999px;
 	overflow: hidden;
 	white-space: nowrap;
-	padding-top: 50%;
 
 	&__title {
-		text-indent: -100%;
+		text-indent: 100%;
 	}
 }
 
 /* movieAreaItem */
-@mixin movieAreaItem($bgImageOff, $bgImageOn) {
-	@extend %movieAreaListLink;
-	background-image: url('#{$imagePath}#{$bgImageOff}');
-
-	&:hover {
-		background-image: url('#{$imagePath}#{$bgImageOn}');
-		background-size: cover;
-	}
-}
-
-@mixin movieAreaItemComingSoon($bgImage) {
-	@extend %movieAreaListLink;
-	background-image: url('#{$imagePath}#{$bgImage}');
+@mixin movieAreaItem($bgImage) {
+	@extend %movieAreaList;
+	background: url('#{$imagePath}#{$bgImage}') center top no-repeat;
+	background-size: 100%;
 }
 
 /* introductionArea */
 @mixin introductionArea($bgGraduation, $bgTitle) {
-	display: block;
-	flex: 0 0 50%;
 	background: #{$bgGraduation};
-	padding: 105px 15px;
+	padding: 52px 20px;
 
 	&__title {
 		background: url('#{$imagePathCommon}#{$bgTitle}') center top no-repeat;
@@ -113,22 +81,27 @@ $imagePath: "../img/pc/";
 	}
 
 	&__text {
-		font-size: 1.25vw;
-		line-height: 2.2vw;
+		font-size: 0.75rem;
+		line-height: 1.6em;
 		color: #fff;
-		max-width: 80%;
-		margin: 50px auto 0;
+		margin: 30px auto 0;
 		text-align: center;
 	}
 }
 
+@mixin introductionAreaImg($bgImage) {
+	background: url('#{$imagePathCommon}#{$bgImage}') center top repeat;
+	background-size: 100%;
+	width: 480px * $scale;
+	height: 140px * $scale;
+	margin: 37px auto 0;
+}
+
 /* stafCastArea */
 @mixin stafCastArea($bgImage, $bgTitle) {
-	display: block;
-	flex: 0 0 50%;
-	background: url('#{$imagePath}#{$bgImage}') center top no-repeat;
-	background-size: cover;
-	padding: 105px 15px;
+	background: url('#{$imagePath}#{$bgImage}') center center no-repeat;
+	background-size: 100%;
+	padding: 52px 20px;
 
 	&__title {
 		background: url('#{$imagePath}#{$bgTitle}') center top no-repeat;
@@ -139,20 +112,30 @@ $imagePath: "../img/pc/";
 	}
 
 	&__dllist {
-		font-size: 1.25vw;
-		line-height: 2.2vw;
-		margin: 50px auto 0;
+		font-size: 0.75rem;
+		line-height: 1.6em;
+		margin: 30px auto 0;
 		text-align: center;
 	}
 
 	&__dllistTitle {
-		margin: 40px 0 0;
-		line-height: 3vw;
-		font-size: 1.4vw;
+		margin: 20px 0 0;
+		line-height: 2;
+		font-size: 1rem;
 	}
 
 	&__dllistContents {
 		margin: 0;
+	}
+}
+
+/* contentsCheckBtn */
+@mixin contentsCheckBtn($bgGraduation) {
+	background: #{$bgGraduation};
+
+	&__btn {
+		background-image: url('#{$imagePath}check_btn01.png');
+		@extend %contentsCheckBtn;
 	}
 }
 
@@ -164,8 +147,8 @@ $imagePath: "../img/pc/";
 	white-space: nowrap;
 	background: url('#{$imagePathCommon}#{$bgImage}') center center no-repeat;
 	background-size: $bgSize;
-	width: 50px;
-	height: 80px;
+	width: 60px;
+	height: 60px;
 }
 
 /* navMenuItem */
@@ -174,11 +157,12 @@ $imagePath: "../img/pc/";
 	text-indent: 100%;
 	overflow: hidden;
 	white-space: nowrap;
-	background: url('#{$imagePath}#{$bgImage}') left top no-repeat;
-	background-size: 640px 220px;
-	width: 640px;
-	height: 220px;
-	margin: 0 auto;
+	background-image: url('#{$imagePath}#{$bgImage}');
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%;
+	height: 110px;
 	pointer-events: auto;
 }
 
@@ -191,33 +175,32 @@ body {
 
 /*-- loading --*/
 .loading {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: #f1f1f1;
-	z-index: 500;
-	display: none;
+	display:none;
+	z-index:101;
+	position:fixed;
+	top:0;
+	left:0;
+	background:#f1f1f1;
+	width:100%;
+	height:100%;
+
 
 	&__logo {
 		background: url('#{$imagePathCommon}logo_loading.png') center no-repeat;
-		background-size:320px 107px;
-		width: 320px;
-		height: 107px;
+		background-size:230px 77px;
 		width:100%;
 		height:100%;
 		position:absolute;
 		top:0;
 		left:0;
-		text-indent: -100%;
+		text-indent: -9999px;
 	}
 }
 
 
 /*-- header --*/
 .header {
-	padding:40px 0;
+	padding:10px 15px;
 	min-height:1px;
 	position: fixed;
 	top: 0;
@@ -225,30 +208,29 @@ body {
 	z-index: 99;
 	width: 100%;
 
-	&__logo{
+	&__logo {
 		text-indent: 100%;
 		overflow: hidden;
 		white-space: nowrap;
 		background: url('#{$imagePathCommon}logo.png') left top no-repeat;
-		background-size: 162px 60px;
-		width: 162px;
-		height: 60px;
+		background-size: 81px 30px;
+		width: 81px;
+		height: 30px;
 		display: block;
 		float: left;
-		margin:0 0 0 34px;
+		margin:12px 0 0;
 	}
 
-	&__menu{
+	&__menu {
 		background:#ddd;
 		border-radius:100px;
 		width: 45px;
 		height: 45px;
 		float: right;
-		margin: 0 40px 0 0;
 		pointer-events: auto;
 	}
 
-	&__menuOpen{
+	&__menuOpen {
 		display: block;
 		background: url('#{$imagePathCommon}menu.png') center no-repeat;
 		background-size:100%;
@@ -256,14 +238,13 @@ body {
 		height: 100%;
 	}
 
-	&::after{
-		content:" ";
+	&::after {
+		content:".";
 		display:block;
 		clear:both;
 		height:0;
 		visibility:hidden;
 	}
-
 }
 
 
@@ -271,155 +252,139 @@ body {
 
 /* ダルタニャン kv */
 .darutanyan_kvArea {
-	$bgImage: "darutanyan/main_v01.jpg";
+	$bgImage: "darutanyan/darutanyan_main_v01.png";
 	@include kvArea($bgImage);
 
+	&__heading{
+		background: url('#{$imagePath}darutanyan/heading.png') center top no-repeat;
+		background-size: 100%;
+		width: 527px * $scale;
+		height: 159px * $scale;
+		position:absolute;
+	    top: 292px;
+		left: 28px;
+	}
+
 	&__newsArea {
+		background: url('#{$imagePath}darutanyan/news_bg.png') center top no-repeat;
+		background-size: 100%;
+		width: 640px * $scale;
+		height: 207px * $scale;
 		position: absolute;
 		bottom: 0;
-		right: 0;
-		background: url('#{$imagePath}darutanyan/header_news_bg.png') bottom left no-repeat;
-		width: 609px;
-		height: 310px;
-		background-size: 609px 230px;
-		padding: 0 0 0 200px;
+		left: 0;
+		display: flex;
+		align-items: center;
+		padding: 25px 0 0;
 	}
 
 	&__newsAreaTxt {
-		text-indent: 100%;
-		overflow: hidden;
-		white-space: nowrap;
-		background: url('#{$imagePath}darutanyan/header_news_txt01.png') left top no-repeat;
+		background: url('#{$imagePath}darutanyan/news_txt01.png') center top no-repeat;
 		background-size: 100%;
-		display: block;
-		width: 354px;
-		height: 310px;
-		/* 0621の時の「制作の都合により〜の文言」が長いため調整用のcss */
-		position: relative;
-		top: 4px;
+		width: 640px * $scale;
+		height: 128px * $scale;
+		text-indent: 100%;
 	}
-
 }
 
 /* ルシファー kv */
 .rushifa_kvArea {
-	$bgImage: "rushifa/main_v02.jpg";
+	$bgImage: "rushifa/rushifa_main_v01.png";
 	@include kvArea($bgImage);
 }
 
 
-/*-- mixin movieAreaItem --*/
+/*-- mixin movieArea --*/
 
 /* ダルタニャン movieArea */
 .darutanyan_movieArea {
+	padding: 18px 0;
+	background:#1e1e1e;
 
-	&__list {
-		display: flex;
-		width: 100%;
-	}
-
-	&__itemImgNewIcon {
+	&__itemImgNewIcon{
 		@extend %movieNewIcon;
 	}
 
-	&__listItem{
-		@extend %movieAreaList;
+	&__listItem {
+		position: relative;
 	}
 
-	&__listItemLink01 {
-		$bgImage: "darutanyan/darutanyan_banner00.jpg";
-		@include movieAreaItemComingSoon($bgImage);
-		border-left: 0;
+	&__listItemLink02 {
+		$bgImage: "darutanyan/darutanyan_banner01.png";
+		@include movieAreaItem($bgImage);
 	}
 
-	&__listItemLink02{
-		$bgImageOff: "darutanyan/darutanyan_banner01_off.jpg";
-		$bgImageOn: "darutanyan/darutanyan_banner01_on.jpg";
-		@include movieAreaItem($bgImageOff, $bgImageOn);
+	&__listItemLink03 {
+		$bgImage: "darutanyan/darutanyan_banner02.png";
+		@include movieAreaItem($bgImage);
+		margin: 0 auto;
 	}
 
-	&__listItemLink03{
-		$bgImageOff: "darutanyan/darutanyan_banner02_off.jpg";
-		$bgImageOn: "darutanyan/darutanyan_banner02_on.jpg";
-		@include movieAreaItem($bgImageOff, $bgImageOn);
-		border-right: 1px;
+	&__listItemLink01{
+		display:none;
 	}
 
 }
 
 /* ルシファー movieArea */
 .rushifa_movieArea {
-
-	&__list {
-		display: flex;
-		width: 100%;
-	}
-
-	&__listItem {
-		@extend %movieAreaList;
-	}
+	padding: 18px 0;
+	background:#1e1e1e;
 
 	&__itemImgNewIcon {
 		@extend %movieNewIcon;
 	}
 
+	&__listItem {
+		position: relative;
+	}
+
 	&__listItemLink01 {
-		$bgImageOff: "rushifa/movie_num_1_off.jpg";
-		$bgImageOn: "rushifa/movie_num_1_on.jpg";
-		@include movieAreaItem($bgImageOff, $bgImageOn);
-		border-left: 0px;
+		$bgImage: "rushifa/rushifa_banner01.png";
+		@include movieAreaItem($bgImage);
 	}
 
 	&__listItemLink02 {
-		$bgImageOff: "rushifa/movie_num_2_off.jpg";
-		$bgImageOn: "rushifa/movie_num_2_on.jpg";
-		@include movieAreaItem($bgImageOff, $bgImageOn);
+		$bgImage: "rushifa/rushifa_banner02.png";
+		@include movieAreaItem($bgImage);
 	}
 
 	&__listItemLink03 {
-		$bgImageOff: "rushifa/movie_num_3_off.jpg";
-		$bgImageOn: "rushifa/movie_num_3_on.jpg";
-		@include movieAreaItem($bgImageOff, $bgImageOn);
-		border-right: 1px;
+		$bgImage: "rushifa/rushifa_banner03.png";
+		@include movieAreaItem($bgImage);
+		margin: 0 auto;
 	}
-}
-
-
-/*-- contentsArea --*/
-.contentsArea {
-	display: flex;
 }
 
 
 /*-- mixin introductionArea --*/
 
-/* ダルタニャン introduction */
+/* ダルタニャン introductionArea */
 .darutanyan_introductionArea {
 	$bgGraduation: "linear-gradient(to right, #25d7fd 0%,#1789fb 100%)";
 	$bgTitle: "darutanyan/title_1.png";
 	@include introductionArea($bgGraduation, $bgTitle);
 
 	&__imgDarutanyan01 {
-		background-image: url('#{$imagePathCommon}darutanyan/darutanyan_intro_img_01.png');
-		@extend %introductionAreaImage;
+		$bgImage: "darutanyan/darutanyan_intro_img_01.png";
+		@include introductionAreaImg($bgImage);
 	}
 
 	&__imgDarutanyan02 {
-		background-image: url('#{$imagePathCommon}darutanyan/darutanyan_intro_img_02.png');
-		@extend %introductionAreaImage;
+		$bgImage: "darutanyan/darutanyan_intro_img_02.png";
+		@include introductionAreaImg($bgImage);
 	}
-
 }
 
-/* ルシファー introduction */
+/* ルシファー introductionArea */
 .rushifa_introductionArea {
 	$bgGraduation: "linear-gradient(to right, #e7168c 0%,#821cca 100%)";
 	$bgTitle: "rushifa/title_1.png";
 	@include introductionArea($bgGraduation, $bgTitle);
 
 	&__imgRushifa01 {
-		background-image: url('#{$imagePathCommon}rushifa/rushifa_intro_img_01.png');
-		@extend %introductionAreaImage;
+		$bgImage: "rushifa/rushifa_intro_img_01.png";
+		@include introductionAreaImg($bgImage);
 	}
 
 }
@@ -429,31 +394,55 @@ body {
 
 /* ダルタニャン stafCastArea */
 .darutanyan_stafCastArea {
-	$bgImage: "darutanyan/bg_1.jpg";
+	$bgImage: "darutanyan/staf_cast_bg.png";
 	$bgTitle: "darutanyan/title_2.png";
 	@include stafCastArea($bgImage, $bgTitle);
 }
 
-/* ルシファー stafCastArea */
+/* ルシファ stafCastArea */
 .rushifa_stafCastArea {
-	$bgImage: "rushifa/bg_2.jpg";
+	$bgImage: "rushifa/staf_cast_bg.png";
 	$bgTitle: "rushifa/title_2.png";
 	@include stafCastArea($bgImage, $bgTitle);
 }
 
 
-/*-- アニメバナー --*/
+/*-- mixin contentsCheckBtn --*/
+
+/* ダルタニャン contentsCheckBtn */
+.darutanyan_contentsCheck {
+	$bgGraduation: "linear-gradient(to right, #25d7fd 0%,#1789fb 100%)";
+	@include contentsCheckBtn($bgGraduation);
+}
+
+/* ルシファー contentsCheckBtn */
+.rushifa_contentsCheck {
+	$bgGraduation: "linear-gradient(to right, #e7168c 0%,#821cca 100%)";
+	@include contentsCheckBtn($bgGraduation);
+}
+
+/* 詳細を閉じる */
+.contentsClose {
+
+	&__btn {
+		background-color: #6b6b6b;
+		background-image: url('#{$imagePath}close_btn01.png');
+		@extend %contentsCheckBtn;
+	}
+}
+
 .animeBannerArea {
-	background:#f1f1f1;
-	padding: 40px 0;
+	border-top: 1px solid #c3c3c3;
+	margin: 18px 0 0;
+	padding: 18px 10px;
 
 	&__img {
 		display: block;
 		text-indent: 100%;
 		overflow: hidden;
 		white-space: nowrap;
-		background: url('#{$imagePath}official_top_bnr.png') center center no-repeat;
-		background-size: 100%;
+		background: url('#{$imagePath}anime_monst_banner01.png') center center no-repeat;
+		background-size: 300px 115px;
 		width: 300px;
 		height: 115px;
 		margin: 0 auto;
@@ -461,17 +450,18 @@ body {
 
 }
 
+
 /*-- シェアエリア --*/
 .shareArea {
-	border-top: 1px solid #909090;
-	border-bottom: 1px solid #909090;
+	border-top: 1px solid #c3c3c3;
+	border-bottom: 1px solid #c3c3c3;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
 	&__item {
-		flex: 0 0 50px;
-		width: 50px;
+		flex: 0 0 60px;
+		width: 60px;
 	}
 
 	&__itemFacebook {
@@ -497,20 +487,21 @@ body {
 /*-- footer --*/
 .footerArea {
 	text-align: center;
+	margin: 0 0 30px;
 
 	&__logo {
 		margin: 48px 0 0;
 
 		img {
-			width: 98px;
+			width: 65px;
 			height: auto;
 		}
 	}
 
 	&__copyright {
 		color: #010101;
-		font-size: 12px;
-		margin: 20px 0 50px;
+		font-size: 9px;
+		margin: 20px 0 0;
 		font-style: normal;
 	}
 }
@@ -525,6 +516,7 @@ body {
 	width: 100%;
 	height: 100%;
 	z-index: 102;
+	transition: all 1s;
 	display: none;
 	overflow-y: scroll;
 
@@ -540,21 +532,13 @@ body {
 		overflow: hidden;
 		white-space: nowrap;
 		background: url('#{$imagePathCommon}menu_close.png') left top no-repeat;
-		position: fixed;
-		top: 40px;
-		right: 40px;
+		position: absolute;
+		top: 10px;
+		right: 15px;
 		background-size: 45px 45px;
 		width: 45px;
 		height: 45px;
 		pointer-events: auto;
-	}
-
-	&__list {
-		margin: 15px 0 0;
-	}
-
-	&__listItem {
-		margin: 20px 0 0;
 	}
 
 	&__title {
@@ -565,37 +549,41 @@ body {
 		background: url('#{$imagePathCommon}menu_txt.png') left top no-repeat;
 		background-size: 66px 19px;
 		width: 66px;
-		margin: 30px auto 0;
+		margin: 20px auto 0;
+	}
+
+	&__list {
+		margin: 15px 0 30px;
+	}
+
+	&__listItem {
+		margin: 5px 0 0;
 	}
 
 	&__listItemDarutanyan {
-		$bgImage: "menu_1.jpg";
+		$bgImage: "menu_darutanyan01.png";
 		@include navMenuItem($bgImage);
 	}
 
 	&__listItemRushifa {
-		$bgImage: "menu_2.jpg";
+		$bgImage: "menu_rushifa01.png";
 		@include navMenuItem($bgImage);
 	}
 
 	&__listItemAnime {
-		$bgImage: "menu_3.jpg";
+		$bgImage: "menu_monst01.png";
 		@include navMenuItem($bgImage);
 	}
 
 }
 
-.contentsClose {
-	display: none;
-}
-
-.darutanyan_contentsCheck,
-.rushifa_contentsCheck {
-	display: none;
-}
 
 /*-- 状態変更 jsで付与されるclass --*/
 .STATE_showNavMenu {
 	display: block;
 	opacity: 1;
+}
+
+.STATE_btnNone {
+	display: none;
 }

@@ -5,7 +5,10 @@
 .darutanyan_movieArea__listItem, .rushifa_movieArea__listItem {
   position: relative;
   display: block;
-  flex: 0 0 33.33%;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 33%;
+  -ms-flex: 0 0 33%;
+  flex: 0 0 33%;
   width: 33.33%; }
 
 /* movieArea リストリンク */
@@ -178,6 +181,9 @@ body {
 /*-- mixin movieAreaItem --*/
 /* ダルタニャン movieArea */
 .darutanyan_movieArea__list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   width: 100%; }
 
@@ -200,6 +206,9 @@ body {
 
 /* ルシファー movieArea */
 .rushifa_movieArea__list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   width: 100%; }
 
@@ -225,13 +234,20 @@ body {
 
 /*-- contentsArea --*/
 .contentsArea {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex; }
 
 /*-- mixin introductionArea --*/
 /* ダルタニャン introduction */
 .darutanyan_introductionArea {
   display: block;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
   flex: 0 0 50%;
+  background: -webkit-gradient(linear, left top, right top, from(#25d7fd),to(#1789fb));
   background: linear-gradient(to right, #25d7fd 0%,#1789fb 100%);
   padding: 105px 15px; }
   .darutanyan_introductionArea__title {
@@ -255,7 +271,11 @@ body {
 /* ルシファー introduction */
 .rushifa_introductionArea {
   display: block;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
   flex: 0 0 50%;
+  background: -webkit-gradient(linear, left top, right top, from(#e7168c),to(#821cca));
   background: linear-gradient(to right, #e7168c 0%,#821cca 100%);
   padding: 105px 15px; }
   .rushifa_introductionArea__title {
@@ -278,6 +298,9 @@ body {
 /* ダルタニャン stafCastArea */
 .darutanyan_stafCastArea {
   display: block;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
   flex: 0 0 50%;
   background: url("../img/pc/darutanyan/bg_1.jpg") center top no-repeat;
   background-size: cover;
@@ -303,6 +326,9 @@ body {
 /* ルシファー stafCastArea */
 .rushifa_stafCastArea {
   display: block;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+  -ms-flex: 0 0 50%;
   flex: 0 0 50%;
   background: url("../img/pc/rushifa/bg_2.jpg") center top no-repeat;
   background-size: cover;
@@ -344,10 +370,22 @@ body {
 .shareArea {
   border-top: 1px solid #909090;
   border-bottom: 1px solid #909090;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
   align-items: center; }
   .shareArea__item {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 50px;
+    -ms-flex: 0 0 50px;
     flex: 0 0 50px;
     width: 50px; }
   .shareArea__itemFacebook {
