@@ -12,6 +12,7 @@ var ssi = require('browsersync-ssi') ;
 var htmlhint = require('gulp-htmlhint');
 var jshint = require("gulp-jshint");
 var cached = require('gulp-cached');
+var csslint = require('gulp-csslint');
 
 
 // エラーハンドリングの関数
@@ -34,6 +35,21 @@ gulp.task('sass', function() {
 		.pipe(rename({extname: '.min.css'}))
 		.pipe(gulp.dest('./assets/common/css/'))
 		.pipe(browser.reload({stream: true}));
+});
+
+
+// csslint
+gulp.task('css', function() {
+    gulp.src('./assets/common/css/**/*.min.css')
+	.pipe(plumberWithNotify())
+        .pipe(csslint({
+            "empty-rules": false, // 空のセレクタをチェック
+            "display-property-grouping": false, //指定が誤っているプロパティをチェック
+            "import": false,　//他の外部cssを読み込んでいるかチェック
+            "known-properties": false,　// 存在しないプロパティがないかチェック
+            "star-property-hack": false,　// 古いブラウザ対策
+        }))
+		.pipe(csslint.formatter('fail'));
 });
 
 
