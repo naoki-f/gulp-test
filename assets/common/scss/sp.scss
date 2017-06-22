@@ -13,7 +13,7 @@ $scale: 0.5;
 
 /* movieArea リスト */
 %movieAreaList {
-	display: block;
+	display: inline-block;
 	width: 600px * $scale;
 	height: 146px * $scale;
 	margin: 0 auto 10px;
