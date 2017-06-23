@@ -1,18 +1,18 @@
 // プラグインの変数を指定
 var gulp = require('gulp');
-var sass = require('gulp-sass');
-var cleanCSS = require('gulp-clean-css');
-var rename = require('gulp-rename');
-var runSequence = require('run-sequence');
 var plumber = require('gulp-plumber');
 var notify = require('gulp-notify');
+var sasslint = require('gulp-sass-lint');
+var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
-var browser = require("browser-sync") ;
-var ssi = require('browsersync-ssi') ;
+var cleanCSS = require('gulp-clean-css');
+var rename = require('gulp-rename');
+var cached = require('gulp-cached');
 var htmlhint = require('gulp-htmlhint');
 var jshint = require("gulp-jshint");
-var cached = require('gulp-cached');
-var csslint = require('gulp-csslint');
+var browser = require("browser-sync");
+var ssi = require('browsersync-ssi');
+var runSequence = require('run-sequence');
 
 
 // エラーハンドリングの関数
@@ -20,9 +20,22 @@ function plumberWithNotify() {
 	return plumber({errorHandler: notify.onError("<%= error.message %>")});
 }
 
+// sass-lint
+gulp.task('sass-lint', function(){
+    return gulp.src('./assets/common/scss/**/*.scss')
+	    .pipe(plumber())
+        .pipe(sasslint({
+			options: {
+				configFile: '.sass-lint.yml'
+			}
+		}))
+		.pipe(sasslint.format())
+        .pipe(sasslint.failOnError())
+});
+
 
 // sassのコンパイル + prefixの付与 + cssの圧縮と名前変更
-gulp.task('sass', function() {
+gulp.task('sass', function(){
 	return gulp.src('./assets/common/scss/**/*.scss')
 		.pipe(plumberWithNotify())
 		.pipe(cached())
@@ -35,21 +48,6 @@ gulp.task('sass', function() {
 		.pipe(rename({extname: '.min.css'}))
 		.pipe(gulp.dest('./assets/common/css/'))
 		.pipe(browser.reload({stream: true}));
-});
-
-
-// csslint
-gulp.task('css', function() {
-    gulp.src('./assets/common/css/**/*.min.css')
-	.pipe(plumberWithNotify())
-        .pipe(csslint({
-            "empty-rules": false, // 空のセレクタをチェック
-            "display-property-grouping": false, //指定が誤っているプロパティをチェック
-            "import": false,　//他の外部cssを読み込んでいるかチェック
-            "known-properties": false,　// 存在しないプロパティがないかチェック
-            "star-property-hack": false,　// 古いブラウザ対策
-        }))
-		.pipe(csslint.formatter('fail'));
 });
 
 
@@ -95,6 +93,7 @@ gulp.task('server', function(){
 
 // gulpのwatch
 gulp.task('watch', function(){
+	gulp.watch(['./assets/common/scss/**/*.scss'], ['sass-lint']);
 	gulp.watch(['./assets/common/scss/**/*.scss'], ['sass']);
 	gulp.watch(['./assets/views/layouts/**/*.html'], ['html']);
 	gulp.watch(['./assets/common/js/**/*.js'], ['js']);
@@ -110,6 +109,7 @@ gulp.task('reload', function(){
 // タスクの直列、並列処理
 gulp.task('default', function(){
 	runSequence(
+		'sass-lint',
 		'sass',
 		'html',
 		'js',

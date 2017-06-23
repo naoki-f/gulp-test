@@ -2,8 +2,8 @@
 
 
 /*-- PCグローバル変数 --*/
-$layoutType:PC;
-$scale:1;
+$layoutType: PC;
+$scale: 1;
 $imagePathCommon: "../img/";
 $imagePath: "../img/pc/";
 
@@ -12,50 +12,50 @@ $imagePath: "../img/pc/";
 
 /* movieArea リスト */
 %movieAreaList {
-	position:relative;
-	display: block;
-	flex: 0 0 33.33%;
-	width: 33.33%;
+    position: relative;
+    display: block;
+    flex: 0 0 33.33%;
+    width: 33.33%;
 }
 
 /* movieArea リストリンク */
 %movieAreaListLink {
-	width: 100%;
-	height: 100%;
-	border: 1px solid #fff;
-	border-right: 0;
-	padding-top: 52%;
-	display: block;
-	text-indent: 100%;
-	overflow: hidden;
-	white-space: nowrap;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #fff;
+    border-right: 0;
+    padding-top: 52%;
+    display: block;
+    text-indent: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /* movieArea newIcon */
 %movieNewIcon {
-	display: block;
-	text-indent: 100%;
-	overflow: hidden;
-	white-space: nowrap;
-	background: url('#{$imagePath}new.png') left top repeat;
-	width: 51px;
-	height: 82px;
-	position: absolute;
-	bottom: 1px;
-	right: 15px;
+    display: block;
+    text-indent: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    background: url('#{$imagePath}new.png') left top repeat;
+    width: 51px;
+    height: 82px;
+    position: absolute;
+    bottom: 1px;
+    right: 15px;
 }
 
 /* introductionArea image */
 %introductionAreaImage {
-	background-size: 100%;
-	background-position: center top;
-	background-repeat: no-repeat;
-	width: 480px * $scale;
-	height: 140px * $scale;
-	margin: 60px auto 0;
+    background-size: 100%;
+    background-position: center top;
+    background-repeat: no-repeat;
+    width: 480px * $scale;
+    height: 140px * $scale;
+    margin: 60px auto 0;
 }
 
 
@@ -63,38 +63,37 @@ $imagePath: "../img/pc/";
 
 /* kvArea */
 @mixin kvArea($bgImage) {
-	position: relative;
-	background: url('#{$imagePath}#{$bgImage}') center no-repeat;
-	background-size: 100%;
-	background-size: cover;
-	display: block;
-	width: 100%;
-	height: auto;
-	max-height: 750px;
-	text-indent: 100%;
-	overflow: hidden;
-	white-space: nowrap;
-	padding-top: 50%;
+    position: relative;
+    background: url('#{$imagePath}#{$bgImage}') center no-repeat;
+    background-size: cover;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 750px;
+    text-indent: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-top: 50%;
 
-	&__title {
-		text-indent: -100%;
-	}
+    &__title {
+        text-indent: -100%;
+    }
 }
 
 /* movieAreaItem */
 @mixin movieAreaItem($bgImageOff, $bgImageOn) {
-	@extend %movieAreaListLink;
-	background-image: url('#{$imagePath}#{$bgImageOff}');
+    @extend %movieAreaListLink;
+    background-image: url('#{$imagePath}#{$bgImageOff}');
 
-	&:hover {
-		background-image: url('#{$imagePath}#{$bgImageOn}');
-		background-size: cover;
-	}
+    &:hover {
+        background-image: url('#{$imagePath}#{$bgImageOn}');
+        background-size: cover;
+    }
 }
 
 @mixin movieAreaItemComingSoon($bgImage) {
-	@extend %movieAreaListLink;
-	background-image: url('#{$imagePath}#{$bgImage}');
+    @extend %movieAreaListLink;
+    background-image: url('#{$imagePath}#{$bgImage}');
 }
 
 /* introductionArea */
@@ -202,21 +201,17 @@ body {
 
 	&__logo {
 		background: url('#{$imagePathCommon}logo_loading.png') center no-repeat;
-		background-size:320px 107px;
-		width: 320px;
-		height: 107px;
-		width:100%;
-		height:100%;
-		position:absolute;
-		top:0;
-		left:0;
+		background-size: 320px 107px;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
 		text-indent: -100%;
-	}
+    }
 }
 
-.header {
-	marginaaaa:25px; 
-}
+
 /*-- header
 .header {
 	padding:40px 0;
@@ -324,23 +319,23 @@ body {
 		@extend %movieNewIcon;
 	}
 
-	&__listItem{
+	&__listItem {
 		@extend %movieAreaList;
 	}
 
 	&__listItemLink01 {
-		$bgImage: "darutanyan/darutanyan_banner00.jpg";
-		@include movieAreaItemComingSoon($bgImage);
+        $bgImage: "darutanyan/darutanyan_banner00.jpg";
+        @include movieAreaItemComingSoon($bgImage);
 		border-left: 0;
 	}
 
-	&__listItemLink02{
+	&__listItemLink02 {
 		$bgImageOff: "darutanyan/darutanyan_banner01_off.jpg";
 		$bgImageOn: "darutanyan/darutanyan_banner01_on.jpg";
 		@include movieAreaItem($bgImageOff, $bgImageOn);
 	}
 
-	&__listItemLink03{
+	&__listItemLink03 {
 		$bgImageOff: "darutanyan/darutanyan_banner02_off.jpg";
 		$bgImageOn: "darutanyan/darutanyan_banner02_on.jpg";
 		@include movieAreaItem($bgImageOff, $bgImageOn);
@@ -369,7 +364,7 @@ body {
 		$bgImageOff: "rushifa/movie_num_1_off.jpg";
 		$bgImageOn: "rushifa/movie_num_1_on.jpg";
 		@include movieAreaItem($bgImageOff, $bgImageOn);
-		border-left: 0px;
+		border-left: 0;
 	}
 
 	&__listItemLink02 {
@@ -402,13 +397,13 @@ body {
 	@include introductionArea($bgGraduation, $bgTitle);
 
 	&__imgDarutanyan01 {
+        @extend %introductionAreaImage;
 		background-image: url('#{$imagePathCommon}darutanyan/darutanyan_intro_img_01.png');
-		@extend %introductionAreaImage;
 	}
 
 	&__imgDarutanyan02 {
+        @extend %introductionAreaImage;
 		background-image: url('#{$imagePathCommon}darutanyan/darutanyan_intro_img_02.png');
-		@extend %introductionAreaImage;
 	}
 
 }
@@ -420,8 +415,8 @@ body {
 	@include introductionArea($bgGraduation, $bgTitle);
 
 	&__imgRushifa01 {
+        		@extend %introductionAreaImage;
 		background-image: url('#{$imagePathCommon}rushifa/rushifa_intro_img_01.png');
-		@extend %introductionAreaImage;
 	}
 
 }
@@ -446,7 +441,7 @@ body {
 
 /*-- アニメバナー --*/
 .animeBannerArea {
-	background:#f1f1f1;
+	background: #f1f1f1;
 	padding: 40px 0;
 
 	&__img {
