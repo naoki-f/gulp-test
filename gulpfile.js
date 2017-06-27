@@ -20,9 +20,19 @@ function plumberWithNotify() {
 	return plumber({errorHandler: notify.onError("<%= error.message %>")});
 }
 
+// パスの指定
+var path =
+{
+	src: "./",
+	dest: "./",
+	html: ["./**/*.html","!./node_modules/**/*.html"],
+	baseDir: "./assets/views/layouts/",
+	scss: ["./**/*.scss","!./node_modules/**/*.scss"]
+};
+
 // sass-lint
 gulp.task('sass-lint', function(){
-    return gulp.src('./assets/common/scss/**/*.scss')
+    return gulp.src(path.scss)
 	    .pipe(plumber())
         .pipe(sasslint({
 			options: {
@@ -36,7 +46,7 @@ gulp.task('sass-lint', function(){
 
 // sassのコンパイル + prefixの付与 + cssの圧縮と名前変更
 gulp.task('sass', function(){
-	return gulp.src('./assets/common/scss/**/*.scss')
+	return gulp.src(path.scss)
 		.pipe(plumberWithNotify())
 		.pipe(cached())
     	.pipe(sass())
@@ -46,14 +56,14 @@ gulp.task('sass', function(){
 		}))
 		.pipe(cleanCSS())
 		.pipe(rename({extname: '.min.css'}))
-		.pipe(gulp.dest('./assets/common/css/'))
+		.pipe(gulp.dest(path.dest))
 		.pipe(browser.reload({stream: true}));
 });
 
 
 // htmlhint
 gulp.task('html', function(){
-	gulp.src('./assets/views/layouts/**/*.html')
+	gulp.src(path.html)
 		.pipe(plumberWithNotify())
 		.pipe(htmlhint('.htmlhintrc'))
 		.pipe(htmlhint.failReporter())
@@ -78,11 +88,11 @@ gulp.task('server', function(){
 			port:3006,
 			server:
 			{
-				baseDir: './assets/views/layouts/',
+				baseDir: path.baseDir,
 				index  : 'index.html',
 				middleware:
 				[
-					ssi({ baseDir: './assets/views/layouts/', ext: ".html" })
+					ssi({ baseDir: path.baseDir, ext: ".html" })
 				]
 			},
 			ghostMode: false,
@@ -93,10 +103,9 @@ gulp.task('server', function(){
 
 // gulpのwatch
 gulp.task('watch', function(){
-	gulp.watch(['./assets/common/scss/**/*.scss'], ['sass-lint']);
-	gulp.watch(['./assets/common/scss/**/*.scss'], ['sass']);
-	gulp.watch(['./assets/views/layouts/**/*.html'], ['html']);
-	gulp.watch(['./assets/common/js/**/*.js'], ['js']);
+	gulp.watch([path.scss], ['sass-lint']);
+	gulp.watch([path.scss], ['sass']);
+	gulp.watch([path.html], ['html']);
 });
 
 
@@ -112,7 +121,6 @@ gulp.task('default', function(){
 		'sass-lint',
 		'sass',
 		'html',
-		'js',
 		'server',
 		'watch'
 	);
